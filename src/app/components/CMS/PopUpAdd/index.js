@@ -4,7 +4,7 @@ import CloseDark from "../../../assets/icons/close_dark.svg";
 
 const StyledPopUp = styled.div`
   background: ${({ theme }) => theme.colors.secoundary};
-  width: 90vw;
+  width: 80vw;
   max-width: 400px;
   padding: 3.5em 2.5em;
   position: relative;
@@ -33,7 +33,7 @@ const StyledIcon = styled.img`
   right: 1em;
 `;
 
-const PopUpText = ({ children }) => {
+const PopUpAdd = ({ children }) => {
   return (
     <StyledPopUp>
       <StyledIcon src={CloseDark} alt="close_icon" />
@@ -45,4 +45,4 @@ const PopUpText = ({ children }) => {
     </StyledPopUp>
   );
 };
-export default PopUpText;
+export default PopUpAdd;

@@ -1,12 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 
-// ${({ size }) => size};
 const StyledBtn = styled.button`
   padding: 1.2em 3.8em;
   font-size: ${({ size }) => size * 2.5}px;
-  background: ${({ theme }) => theme.colors.third};
-  color: ${({ theme }) => theme.colors.secoundary};
+  background: ${({ theme, type }) => {
+    switch (type) {
+      case "primary":
+        return theme.colors.third;
+      case "secoundary":
+        return theme.colors.secoundary;
+      case "extra":
+        return theme.colors.fourth;
+      default:
+        return theme.colors.third;
+    }
+  }};
+  color: ${({ theme, type }) => {
+    switch (type) {
+      case "primary":
+        return theme.colors.secoundary;
+      case "secoundary":
+        return theme.colors.fourth;
+      case "extra":
+        return theme.colors.secoundary;
+      default:
+        return theme.colors.secoundary;
+    }
+  }};
 
   text-transform: uppercase;
   font-weight: bold;
@@ -15,11 +36,7 @@ const StyledBtn = styled.button`
   letter-spacing: 0.5px;
 `;
 
-const Button = ({ text, size }) => {
-  return <StyledBtn children={text} size={size} />;
+const Button = ({ text, size, type }) => {
+  return <StyledBtn children={text} size={size} type={type} />;
 };
 export default Button;
-/*
-height: ${({ size }) => size * 9}px;
-  width: ${({ size }) => size * 30}px;
-  */
