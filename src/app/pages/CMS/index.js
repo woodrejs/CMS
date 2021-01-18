@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import PanelFolder from "../../components/CMS/PanelFolder";
-import PanelItem from "../../components/CMS/PanelItem";
-import List from "../../components/CMS/List";
+import List from "../../components/CMS/Items/List";
+
+import MainPanel from "../../components/CMS/Panels/MainPanel";
+import ItemPanel from "../../components/CMS/Panels/ItemPanel";
 
 //cms
 const StyledBck = styled.section`
@@ -58,8 +59,8 @@ const CMS = () => {
           <List />
         </StyledListBox>
         <StyledPanelsBox>
+          <ItemPanel />
           {/* router with panels */}
-          <PanelFolder />
         </StyledPanelsBox>
       </StyledCMS>
     </StyledBck>
@@ -67,3 +68,29 @@ const CMS = () => {
 };
 
 export default CMS;
+
+/*
+  CMS:
+    + Panels
+      - MainPanel
+      - PanelTemplate
+      - ...Panel 
+    + Inputs
+      - TextInput
+      - FileInput
+      - TextareaInput
+      - SelectInput
+    + Popups
+      - PopupTemplate
+      - ConfirmPopup
+      - InfoPopup
+      - ...Popup
+    + AddFields
+      - TextAddField
+      - TextFileField
+    + Items
+      - Thumbnail
+      - Button
+      - File
+      - List
+*/

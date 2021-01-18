@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "reactjs-popup/dist/index.css";
 import App from "./app/App";
 import { ThemeProvider } from "styled-components";
 
