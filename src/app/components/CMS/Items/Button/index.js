@@ -36,7 +36,7 @@ const StyledBtn = styled.button`
   letter-spacing: 0.5px;
 `;
 
-const Button = ({ text, size, type, click }) => {
+const Button = ({ text, size = 5, type = "primary", click }) => {
   return <StyledBtn children={text} size={size} type={type} onClick={click} />;
 };
 export default Button;

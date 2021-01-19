@@ -32,7 +32,7 @@ const MainPanel = () => {
     <TemplatePanel>
       <StyledContentArea>
         {/* comment: here You add AddFile & File */}
-        <FileField />
+        <FileField name="nazwa produktu" type="panelItem" />
         <FileField />
         <File />
         <File />

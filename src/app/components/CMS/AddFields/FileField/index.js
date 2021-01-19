@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import addIcon from "../../../../assets/icons/add.svg";
+import AddPopup from "../../Popups/AddPopup";
 
 const StyledArea = styled.section`
   height: 180px;
@@ -43,17 +44,23 @@ const StyledIcon = styled.img`
 const StyledTitle = styled.p`
   text-transform: uppercase;
   text-align: center;
-  width: 6ch;
+  width: 60%;
   font-size: 13px;
   margin: 1em 0;
 `;
 
-const FileField = ({ name, children, click }) => {
+// comment: add plce to store path to props
+
+const FileField = ({ name, type }) => {
+  const ref = useRef(null);
+  const handleOpenPopup = () => ref.current.open();
+
   return (
     <StyledArea>
       <StyledTitle children="dodaj" />
-      <StyledIcon src={addIcon} alt="add_icon" />
+      <StyledIcon src={addIcon} alt="add_icon" onClick={handleOpenPopup} />
       <StyledTitle children={name} />
+      <AddPopup ref={ref} type={type} />
     </StyledArea>
   );
 };

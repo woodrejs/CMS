@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import deleteIcon from "../../../../assets/icons/close_light.svg";
+import ConfirmPopup from "../../Popups/ConfirmPopup";
 
 const StyledThumb = styled.div`
   background: red;
@@ -28,13 +29,21 @@ const StyledMask = styled.div`
   opacity: 0.7;
 `;
 
-const Thumbnail = ({ imgSrc, click }) => {
+const Thumbnail = ({ imgSrc }) => {
+  const ref = useRef(null);
+  const handleOpenPopup = () => ref.current.open();
+
   return (
     <StyledThumb>
       <StyledMask />
 
       <StyledImg src={imgSrc} alt="thumbnail_img" />
-      <StyledIconDelete src={deleteIcon} alt="delete_icon" />
+      <StyledIconDelete
+        src={deleteIcon}
+        alt="delete_icon"
+        onClick={handleOpenPopup}
+      />
+      <ConfirmPopup ref={ref} />
     </StyledThumb>
   );
 };

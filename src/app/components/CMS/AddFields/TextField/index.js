@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import addIcon from "../../../../assets/icons/add.svg";
 import Tick_icon from "../../../../assets/icons/tick_icon.svg";
+import AddPopup from "../../Popups/AddPopup";
 
 const StyledArea = styled.div`
   min-width: 200px;
@@ -55,14 +56,18 @@ const StyledHeader = styled.h4`
   text-transform: capitalize;
 `;
 
-const TextField = ({ name, children, click }) => {
+const TextField = ({ name, type }) => {
+  const ref = useRef(null);
+  const handleOpenPopup = () => ref.current.open();
+
   return (
     <div>
       <StyledHeader>{name}</StyledHeader>
       <StyledArea added={false}>
-        <StyledIcon src={addIcon} alt="add_icon" />
+        <StyledIcon src={addIcon} alt="add_icon" onClick={handleOpenPopup} />
         <StyledTitle children={`dodaj ${name}`} />
       </StyledArea>
+      <AddPopup ref={ref} type={type} />
     </div>
   );
 };

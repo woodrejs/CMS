@@ -54,10 +54,9 @@ const ItemPanel = () => {
     <TemplatePanel>
       <StyledTextsArea>
         {/* comment: here You add AddText fields */}
-        <TextField />
-        <TextField />
-        <TextField />
-        <TextField />
+        <TextField name="nazwa produktu" type="text" />
+        <TextField name="nazwa produktu" type="textarea" />
+        <TextField name="nazwa produktu" type="panelItem" />
       </StyledTextsArea>
       <StyledFilesArea>
         {/* comment: here You add AddText AddFile & Thumbnails */}

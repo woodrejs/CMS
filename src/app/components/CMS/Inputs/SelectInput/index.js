@@ -32,14 +32,14 @@ const StyledOption = styled.option`
   width: 100%;
 `;
 
-const SelectInput = ({ types, change, selectName }) => {
+const SelectInput = ({ types, change, name }) => {
   return (
     <StyledBox>
-      <StyledLabel htmlFor="inputSelect" children={selectName} />
+      <StyledLabel htmlFor="inputSelect" children={name} />
       <StyledSelect
-        name={selectName}
+        name={name}
         id="inputSelect"
-        onChange={(e) => change(e, selectName)}
+        onChange={(e) => change(e, name)}
       >
         {types.map(({ id, name }) => (
           <StyledOption key={id} value={name} children={name} />

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Popup from "reactjs-popup";
-import Button from "../../Button";
-import InfoPopup from "../InfoPopup";
+import Button from "../..//Items/Button";
 
 const StyledCart = styled.div`
   background: ${({ theme }) => theme.colors.secoundary};
@@ -31,39 +30,23 @@ const StyledBtnBox = styled.div`
   }
 `;
 
-const ConfirmPopup = ({ isOpen, handler }) => {
-  const ref = useRef(null);
-  const [isInfoPopupOpen, setIsInfoPopupOpen] = useState(false);
-
-  const handleInfoPopup = () => setIsInfoPopupOpen(!isInfoPopupOpen);
-
-  const handleDelete = () => {
-    //here You add delete fn
-    handler();
-    handleInfoPopup();
+const ConfirmPopup = React.forwardRef(({}, ref) => {
+  const handleClose = () => ref.current.close();
+  const handleClick = () => {
+    // comment delete fn here
+    handleClose();
   };
-
-  useEffect(() => (isOpen ? ref.current.open() : ref.current.close()), [
-    isOpen,
-  ]);
-
   return (
-    <>
-      <Popup modal ref={ref}>
-        <StyledCart>
-          <StyledText>Czy napewno chcesz usunąć?</StyledText>
-          <StyledBtnBox>
-            <Button text="tak" size={5} type="primary" click={handleDelete} />
-            <Button text="nie" size={5} type="extra" click={handler} />
-          </StyledBtnBox>
-        </StyledCart>
-      </Popup>
-      <InfoPopup
-        isOpen={isInfoPopupOpen}
-        type="delete"
-        handler={handleInfoPopup}
-      />
-    </>
+    <Popup modal ref={ref}>
+      <StyledCart>
+        <StyledText children="Czy napewno chcesz usunąć?" />
+        <StyledBtnBox>
+          <Button text="tak" click={handleClick} />
+          <Button text="nie" type="extra" click={handleClose} />
+        </StyledBtnBox>
+      </StyledCart>
+    </Popup>
   );
-};
+});
+
 export default ConfirmPopup;

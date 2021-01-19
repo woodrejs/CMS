@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import deleteIcon from "../../../../assets/icons/close_light.svg";
+import ConfirmPopup from "../../Popups/ConfirmPopup";
 
 const StyledFolder = styled.div`
   position: relative;
@@ -29,14 +30,23 @@ const StyledIconDelete = styled.img`
   right: 1em;
   z-index: 1;
 `;
+
 const File = ({ name, type, imgSrc }) => {
+  const ref = useRef(null);
+  const handleOpenPopup = () => ref.current.open();
+
   return (
     <StyledFolder>
       <StyledBody>
         {type === "item" && <StyledImg src={imgSrc} alt="thmbImg" />}
       </StyledBody>
       <StyledTitle children={name} />
-      <StyledIconDelete src={deleteIcon} alt="deleteIcon" onClick={() => {}} />
+      <StyledIconDelete
+        src={deleteIcon}
+        alt="deleteIcon"
+        onClick={handleOpenPopup}
+      />
+      <ConfirmPopup ref={ref} />
     </StyledFolder>
   );
 };
