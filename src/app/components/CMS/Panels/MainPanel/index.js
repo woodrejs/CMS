@@ -1,45 +1,41 @@
 import React from "react";
-import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
+import { StyledContentArea } from "./index.css";
 import TemplatePanel from "../TemplatePanel";
 import FileField from "../../AddFields/FileField";
 import File from "../../Items/File";
 
-const StyledContentArea = styled.div`
-  width: 100%;
-  display: flex;
-
-  flex-wrap: wrap;
-  padding: 1em;
-  > * {
-    margin: 0 1em 2em 0;
-  }
-
-  @media screen and (min-width: 768px) {
-    justify-content: unset;
-  }
-`;
-
 //have to add check if folder contain folder or items
 //types when select input used [{ id, name }]
-const types = [
-  { id: uuidv4(), name: "folder" },
-  { id: uuidv4(), name: "item" },
-];
 
-const MainPanel = () => {
+const MainPanel = ({ data }) => {
+  const getDataFromDB = () => {
+    // comment: data from base fn
+  };
   return (
     <TemplatePanel>
       <StyledContentArea>
-        {/* comment: here You add AddFile & File */}
-        <FileField name="nazwa produktu" type="panelItem" />
-        <FileField />
-        <File />
-        <File />
-        <File />
-        <File />
+        <FileField name="folder" type="panelItem" />
+        {data.map(({ type, name, id, src }) => {
+          switch (type) {
+            case "folder":
+              return <File key={id} name={name} id={id} />;
+            case "itemsFolder":
+              return <File key={id} name={name} id={id} />;
+            case "item":
+              return <File key={id} name={name} id={id} src={src} />;
+            default:
+              break;
+          }
+        })}
       </StyledContentArea>
     </TemplatePanel>
   );
 };
 export default MainPanel;
+
+/*
+const types = [
+  { id: uuidv4(), name: "folder" },
+  { id: uuidv4(), name: "item" },
+];
+*/

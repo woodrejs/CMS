@@ -1,32 +1,14 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { StyledCart, StyledBtnBox, StyledIcon } from "./index.css";
 import CloseDark from "../../../../assets/icons/close_dark.svg";
 import Button from "../../Items/Button";
 import Popup from "reactjs-popup";
 import TextareaInput from "../../Inputs/TextareaInput";
 import TextInput from "../../Inputs/TextInput";
+import FileInput from "../../Inputs/FileInput";
 import SelectInput from "../../Inputs/SelectInput";
 import { v4 as uuidv4 } from "uuid";
-
-const StyledCart = styled.div`
-  background: ${({ theme }) => theme.colors.secoundary};
-  width: 80vw;
-  max-width: 400px;
-  padding: 3.5em 2.5em;
-  position: relative;
-`;
-const StyledBtnBox = styled.div`
-  height: 2em;
-  margin-top: 5em;
-  display: flex;
-  align-items: center;
-`;
-const StyledIcon = styled.img`
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  cursor: pointer;
-`;
+import { useCounter } from "../../../../utils/sweetState";
 
 const types = [
   { id: uuidv4(), name: "folder" },
@@ -34,32 +16,46 @@ const types = [
 ];
 
 const AddPopup = React.forwardRef(({ type }, ref) => {
-  const [inputsData, setInputsData] = useState();
+  const [inputsData, setInputsData] = useState({});
+  const [_, { toogleAddPopupIsOpen }] = useCounter();
 
+  const handleInput = (e, name, size) => {
+    setInputsData({ ...inputsData, [size ? size : name]: e.target.value });
+  };
   const handleClose = () => ref.current.close();
   const handleClick = () => {
     // comment: add to base fn here
+    // id from url plus name
+
+    setInputsData({});
     handleClose();
+    toogleAddPopupIsOpen();
   };
-  const handleChange = () => {
-    // comment: state update fn
-  };
+
   const createInputs = () => {
     switch (type) {
       case "textarea":
-        return <TextareaInput name="nazwa pliku" change={handleChange} />;
+        return <TextareaInput name="nazwa pliku" change={handleInput} />;
       case "text":
-        return <TextInput name="nazwa pliku" change={handleChange} />;
+        return <TextInput name="nazwa pliku" change={handleInput} />;
       case "panelItem":
         return (
           <>
-            <TextInput name="nazwa pliku" change={handleChange} />
-            <SelectInput name="typ" types={types} change={handleChange} />
+            <TextInput name="nazwa pliku" change={handleInput} />
+            <SelectInput name="typ" types={types} change={handleInput} />
+          </>
+        );
+      case "file":
+        return (
+          <>
+            <FileInput name="photo" change={handleInput} size="s" />
+            <FileInput name="photo" change={handleInput} size="m" />
+            <FileInput name="photo" change={handleInput} size="l" />
           </>
         );
 
       default:
-        return <TextInput name="nazwa pliku" change={handleChange} />;
+        return <TextInput name="nazwa pliku" change={handleInput} />;
     }
   };
 

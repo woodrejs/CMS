@@ -1,96 +1,99 @@
 import React from "react";
-import styled from "styled-components";
 import List from "../../components/CMS/Items/List";
-
+import InfoPopup from "../../components/CMS/Popups/InfoPopup";
 import MainPanel from "../../components/CMS/Panels/MainPanel";
 import ItemPanel from "../../components/CMS/Panels/ItemPanel";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import {
+  StyledBck,
+  StyledCMS,
+  StyledListBox,
+  StyledPanelsBox,
+} from "./index.css";
 
-//cms
-const StyledBck = styled.section`
-  min-height: 100vh;
-  background: linear-gradient(
-    90deg,
-    ${({ theme }) => theme.colors.fourth} 50%,
-    ${({ theme }) => theme.colors.secoundary} 50%
-  );
-  display: flex;
-  justify-content: center;
-`;
-const StyledCMS = styled.div`
-  width: 100%;
-  max-width: 1366px;
-  min-height: 100vh;
-
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 10vh auto;
-
-  @media screen and (orientation: landscape) {
-    grid-template-rows: 15vh auto;
-  }
-`;
-//list
-const StyledListBox = styled.div`
-  background: ${({ theme }) => theme.colors.fourth};
-  grid-area: 1/1/2/13;
-  z-index: 2;
-  overflow: hidden;
-  @media screen and (min-width: 800px) {
-    grid-area: 1/1/3/3;
-  }
-`;
-//panel
-const StyledPanelsBox = styled.div`
-  background: ${({ theme }) => theme.colors.secoundary};
-  grid-area: 2/1/3/13;
-  padding: 1em 1em 0 1em;
-
-  @media screen and (min-width: 800px) {
-    grid-area: 1/3/3/13;
-    padding: 2em 2em 0 2em;
-  }
-`;
+const fantomState = [
+  {
+    name: "kategorie",
+    id: uuidv4(),
+    type: "folder",
+    items: [],
+    folders: [
+      {
+        name: "kategoria1",
+        id: uuidv4(),
+        type: "itemsFolder",
+        items: [],
+        folders: [],
+      },
+      {
+        name: "kategoria2",
+        id: uuidv4(),
+        type: "itemsFolder",
+        items: [],
+        folders: [],
+      },
+    ],
+  },
+  {
+    name: "galeria",
+    id: uuidv4(),
+    type: "itemsFolder",
+    items: [
+      {
+        name: "photo1",
+        id: uuidv4(),
+        type: "item",
+        files: [{}],
+      },
+      {
+        name: "photo2",
+        id: uuidv4(),
+        type: "item",
+        title: "subText..",
+        subTxt: "",
+        files: [
+          { src: { id: uuidv4(), s: "#", m: "#", l: "#" } },
+          { src: { id: uuidv4(), s: "#", m: "#", l: "#" } },
+          { src: { id: uuidv4(), s: "#", m: "#", l: "#" } },
+          { src: { id: uuidv4(), s: "#", m: "#", l: "#" } },
+        ],
+      },
+    ],
+    folders: [],
+  },
+];
 
 const CMS = () => {
   return (
-    <StyledBck>
-      <StyledCMS>
-        <StyledListBox>
-          <List />
-        </StyledListBox>
-        <StyledPanelsBox>
-          <ItemPanel />
-          {/* router with panels */}
-        </StyledPanelsBox>
-      </StyledCMS>
-    </StyledBck>
+    <Router>
+      <StyledBck>
+        <StyledCMS>
+          <StyledListBox>
+            <List />
+          </StyledListBox>
+          <StyledPanelsBox>
+            {/* router with panels */}
+
+            <Switch>
+              <Route
+                component={() => <MainPanel data={fantomState} />}
+                path="/admin/folder"
+              />
+              <Route
+                component={() => <ItemPanel data={fantomState[1].items[1]} />}
+                path="/admin/item"
+              />
+              <Route />
+            </Switch>
+          </StyledPanelsBox>
+        </StyledCMS>
+        {/* Popups */}
+        <InfoPopup type="delete" />
+        <InfoPopup type="add" />
+      </StyledBck>
+    </Router>
   );
 };
 
 export default CMS;
-
-/*
-  CMS:
-    + Panels
-      - MainPanel
-      - PanelTemplate
-      - ...Panel 
-    + Inputs
-      - TextInput
-      - FileInput
-      - TextareaInput
-      - SelectInput
-    + Popups
-      - PopupTemplate
-      - ConfirmPopup
-      - InfoPopup
-      - ...Popup
-    + AddFields
-      - TextAddField
-      - TextFileField
-    + Items
-      - Thumbnail
-      - Button
-      - File
-      - List
-*/

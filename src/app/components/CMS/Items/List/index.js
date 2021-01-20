@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Hamburger from "../../../../assets/icons/hamburger.svg";
 import Close_icon from "../../../../assets/icons/close_light.svg";
+import { Link } from "react-router-dom";
 
 //list
 const StyledListBox = styled.div`
@@ -22,13 +23,15 @@ const StyledList = styled.ul`
 `;
 const StyledListItem = styled.li`
   list-style: none;
-  text-transform: capitalize;
-  color: ${({ theme }) => theme.colors.secoundary};
   padding-left: 0.4em;
-  font-size: 17px;
   cursor: pointer;
   overflow: hidden;
   height: 17px;
+`;
+const StyledLink = styled(Link)`
+  color: ${({ theme }) => theme.colors.secoundary};
+  text-transform: capitalize;
+  font-size: 17px;
 `;
 //hamburger
 const StyledHamburgerBox = styled.div`
@@ -59,71 +62,14 @@ const List = () => {
       <StyledHamburgerBox>
         <StyledHamburger src={Hamburger} alt="hamburger_icon" />
       </StyledHamburgerBox>
-
-      <StyledListItem>
-        dsadsa
-        <StyledList>
-          <StyledListItem>dsadsa</StyledListItem>
-          <StyledListItem>
-            dsadsa
-            <StyledList>
-              <StyledListItem>dsadsa</StyledListItem>
-              <StyledListItem>dsadsa</StyledListItem>
-              <StyledListItem>
-                dsadsa
-                <StyledListItem>
-                  dsadsa
-                  <StyledList>
-                    <StyledListItem>dsadsa</StyledListItem>
-                    <StyledListItem>
-                      dsadsa
-                      <StyledList>
-                        <StyledListItem>dsadsa</StyledListItem>
-                        <StyledListItem>dsadsa</StyledListItem>
-                        <StyledListItem>
-                          dsadsa
-                          <StyledListItem>
-                            dsadsa
-                            <StyledList>
-                              <StyledListItem>dsadsa</StyledListItem>
-                              <StyledListItem>
-                                dsadsa
-                                <StyledList>
-                                  <StyledListItem>dsadsa</StyledListItem>
-                                  <StyledListItem>dsadsa</StyledListItem>
-                                  <StyledListItem>dsadsa</StyledListItem>
-                                </StyledList>
-                              </StyledListItem>
-                              <StyledListItem>dsadsa</StyledListItem>
-                            </StyledList>
-                          </StyledListItem>
-                        </StyledListItem>
-                      </StyledList>
-                    </StyledListItem>
-                    <StyledListItem>dsadsa</StyledListItem>
-                  </StyledList>
-                </StyledListItem>
-              </StyledListItem>
-            </StyledList>
-          </StyledListItem>
-          <StyledListItem>dsadsa</StyledListItem>
-        </StyledList>
-      </StyledListItem>
-      <StyledListItem>
-        dsadsa
-        <StyledList>
-          <StyledListItem>dsadsa</StyledListItem>
-          <StyledListItem>
-            dsadsa
-            <StyledList>
-              <StyledListItem>dsadsa</StyledListItem>
-              <StyledListItem>dsadsa</StyledListItem>
-              <StyledListItem>dsadsa</StyledListItem>
-            </StyledList>
-          </StyledListItem>
-          <StyledListItem>dsadsa</StyledListItem>
-        </StyledList>
-      </StyledListItem>
+      <StyledList>
+        <StyledListItem>
+          <StyledLink to="/admin/item" children="item" />
+        </StyledListItem>
+        <StyledListItem>
+          <StyledLink to="/admin/folder" children="folder" />
+        </StyledListItem>
+      </StyledList>
     </StyledListBox>
   );
 };
